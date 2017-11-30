@@ -1,28 +1,23 @@
 package com.yangle.controller;
 
-import com.yangle.domain.Loginer;
 import com.yangle.domain.User;
 import com.yangle.repository.UserRepository;
-
-import java.io.*;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import com.yangle.service.IUserService;
 import com.yangle.util.GuavaDataCache;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yangle on 2017/9/24.
@@ -37,28 +32,28 @@ public class DemoController {
     private GuavaDataCache dataCache;
     private List<User> userList;
     private int s;
-    @RequestMapping("/home")
-    public String home(Model model,String name){
-
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal();
-        String userName=userDetails.getUsername();
-        String passwd=userDetails.getPassword();
-        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+//    @RequestMapping("/home")
+//    public String home(Model model,String name){
 //
-//         userList= (List<User>) userRepository.findAll();
-//        List<Object[]> ss=userRepository.getUsers();
-//        System.out.print(ss);
-//      s=userRepository.getUserCount();
-//        System.out.print(s);
-//        System.out.printf("2222222222");
-//        Loginer loginer=new Loginer();
-//        loginer.setId("00000000001");
-//        loginer.setName("杨乐");
-//        model.addAttribute("s",s);model.addAttribute("name",name);
-        return "hello";
-    }
+//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+//                .getAuthentication()
+//                .getPrincipal();
+//        String userName=userDetails.getUsername();
+//        String passwd=userDetails.getPassword();
+//        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+////
+////         userList= (List<User>) userRepository.findAll();
+////        List<Object[]> ss=userRepository.getUsers();
+////        System.out.print(ss);
+////      s=userRepository.getUserCount();
+////        System.out.print(s);
+////        System.out.printf("2222222222");
+////        Loginer loginer=new Loginer();
+////        loginer.setId("00000000001");
+////        loginer.setName("杨乐");
+////        model.addAttribute("s",s);model.addAttribute("name",name);
+//        return "hello";
+//    }
 @RequestMapping("/mybatis")
 public String testMapper(int id){
     User user=userServiceImpl.getUsers(id);
