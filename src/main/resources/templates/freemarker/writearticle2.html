@@ -30,7 +30,7 @@
 <main class="tl f6 relative pa4 pa5-ns overflow-hidden">
 
     <div class="markdown-body">
-
+<div style="border: 1px solid red;width: 10%;height: 200px;position: fixed"></div>
         <div class="main-content index-page clearfix ">
 
             <form class="layui-form  layui-form-pane" action="save">
@@ -61,10 +61,11 @@
             </div>
                 <br>
                 <div class="layui-form-item">
-
+                    <label class="layui-form-label" >标签</label>
+                    <div class="layui-input-block">
                         <input type="text" id="tagValue1" lay-verify="title" autocomplete="off" placeholder="请输入标签" class="layui-input">
                         <input type="hidden" id="tages" name="tages">
-
+                    </div>
                 </div>
                 <div class="layui-form-item">
                     <button type="button" class="layui-btn" id="test1">上传缩略图</button>

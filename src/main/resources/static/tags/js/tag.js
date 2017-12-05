@@ -19,7 +19,7 @@ function Tag(inputId){
 		inputObj.css("display","none");
 		var appendStr='';
 		appendStr+='<div class="tagsContaine" id="'+inputId+'_tagcontaine">';
-		appendStr+='<div class="tagList"></div><input type="text" class="tagInput"/>';
+		appendStr+='<div class="tagList"></div><input type="text" placeholder="请输入标签,按ctrl确认" class="tagInput"/>';
 		appendStr+='</div>';
 		inputObj.after(appendStr);
 		var tagInput = $("#"+inputId+"_tagcontaine .tagInput");
