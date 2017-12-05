@@ -1,7 +1,7 @@
 package com.yangle.service.impl;
 
 import com.yangle.domain.User;
-import com.yangle.mapper.DemoMapper;
+import com.yangle.mapper.UserMapper;
 import com.yangle.service.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +16,10 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements IUserService {
     @Autowired
-    private DemoMapper demoMapper;
-    @Override
-    public User getUsers(int id) {
-        return demoMapper.getUserById(id);
-    }
+    private UserMapper userMapper;
 
     @Override
-    public User getUserByName(String name) {
-        return demoMapper.getUserByName(name);
-    }
-
-    @Override
-    public List<Map<String, Object>> getUsers() {
-        return demoMapper.getUsers();
+    public User getUser(String userId) {
+        return userMapper.getUserByuserId(userId);
     }
 }

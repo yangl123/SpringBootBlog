@@ -1,6 +1,6 @@
 package com.yangle.controller;
 
-import com.yangle.domain.User;
+import com.yangle.domain.FileResult;
 import com.yangle.repository.UserRepository;
 import com.yangle.service.IUserService;
 import com.yangle.util.GuavaDataCache;
@@ -30,7 +30,7 @@ public class DemoController {
     private IUserService userServiceImpl;
     @Autowired
     private GuavaDataCache dataCache;
-    private List<User> userList;
+//    private List<User> userList;
     private int s;
 //    @RequestMapping("/home")
 //    public String home(Model model,String name){
@@ -56,10 +56,10 @@ public class DemoController {
 //    }
 @RequestMapping("/mybatis")
 public String testMapper(int id){
-    User user=userServiceImpl.getUsers(id);
-    System.out.print(user);
-    List<Map<String,Object>> users=userServiceImpl.getUsers();
-    System.out.print(users);
+//    User user=userServiceImpl.getUsers(id);
+//    System.out.print(user);
+//    List<Map<String,Object>> users=userServiceImpl.getUsers();
+//    System.out.print(users);
     return "hello";
 }
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
@@ -74,27 +74,30 @@ public String testMapper(int id){
     }
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public String upload(@RequestParam("file") MultipartFile file) {
+    public FileResult upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
         if (!file.isEmpty()) {
             try {
                 // 这里只是简单例子，文件直接输出到项目路径下。
                 // 实际项目中，文件需要输出到指定位置，需要在增加代码处理。
                 // 还有关于文件格式限制、文件大小限制，详见：中配置。
+                String path=request.getRealPath("files");
                 BufferedOutputStream out = new BufferedOutputStream(
-                        new FileOutputStream(new File(file.getOriginalFilename())));
+                        new FileOutputStream(new File(path+file.getOriginalFilename())));
                 out.write(file.getBytes());
+                String filePath=request.getContextPath()+"/files/"+file.getOriginalFilename();
                 out.flush();
                 out.close();
-            } catch (FileNotFoundException e) {
+                FileResult fileResult=new FileResult(0,"上传成功",filePath);
+                return fileResult;
+            }  catch (IOException e) {
                 e.printStackTrace();
-                return "上传失败," + e.getMessage();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "上传失败," + e.getMessage();
+                FileResult fileResult=new FileResult(1,"上传失败","");
+                return fileResult;
             }
-            return "上传成功";
+
         } else {
-            return "上传失败，因为文件是空的.";
+            FileResult fileResult=new FileResult(1,"上传失败","");
+            return fileResult;
         }
     }
 
@@ -198,13 +201,6 @@ return  value;
         return (String) dataCache.query(key);
     }
 
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
 
     public int getS() {
         return s;

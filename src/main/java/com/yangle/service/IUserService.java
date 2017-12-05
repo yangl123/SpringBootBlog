@@ -11,7 +11,6 @@ import java.util.Map;
  */
 @Service
 public interface IUserService {
-    User getUsers(int id);
-    User getUserByName(String name);
-    List<Map<String,Object>> getUsers();
+    User getUser(String  userId);
+
 }

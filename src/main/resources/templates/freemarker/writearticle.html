@@ -1,0 +1,166 @@
+
+<!-- saved from url=(0036)https://liberxue.github.io/?liberxue -->
+<html lang="zh-cn" data-scribe-reduced-action-queue="true"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="x-dns-prefetch-control" content="on">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>Person blog</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link href="xcode.min.css" rel="stylesheet">
+    <link href="style-liberxue.css" rel="stylesheet">
+    <script src="push.js"></script><script async="" src="analytics.js"></script><script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-101222464-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+</head>
+<body class="bg-grey" gtools_scp_screen_capture_injected="true"><div id="MathJax_Message" style="display: none;"></div>
+<#include "./common/_header.html"/>
+
+<main class="tl f6 relative pa4 pa5-ns overflow-hidden">
+
+    <div class="markdown-body">
+<div style="border: 1px solid red;width: 10%;height: 200px;position: fixed"></div>
+        <div class="main-content index-page clearfix ">
+
+            <form class="layui-form  layui-form-pane" action="save">
+                <div class="layui-form-item">
+                    <label class="layui-form-label" >标题</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label" >分类</label>
+                    <div class="layui-input-block" >
+                        <select name="interest" lay-filter="aihao">
+                            <option value=""></option>
+                            <option value="0">写作</option>
+                            <option value="1" selected="">阅读</option>
+                            <option value="2">游戏</option>
+                            <option value="3">音乐</option>
+                            <option value="4">旅行</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+            <div id="editor" >
+                <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+            </div>
+                <br>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" >标签</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="tagValue1" lay-verify="title" autocomplete="off" placeholder="请输入标签" class="layui-input">
+                        <input type="hidden" id="tages" name="tages">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <button type="button" class="layui-btn" id="test1">上传缩略图</button>
+                    <img class="layui-upload-img" id="demo1" width="250px" height="250px" style="border: 1px">
+                </div>
+            </form>
+        </div></div></main>
+
+
+<#include "./common/_footer.html"/>
+<#include "./common/_js.html"/>
+<script type="text/javascript" src="js/wangEditor.min.js"></script>
+<script type="text/javascript">
+    var tag1 = new Tag("tagValue1");
+    $(function () {
+        var editor = new wangEditor('#editor')
+        // 或者 var editor = new E( document.getElementById('#editor') )
+        editor.customConfig.zIndex = 10
+        editor.create()
+//初始化已有标签
+
+        /*tag1.tagValue = "浙江,绍兴,上海,山东,北京,四川";*/
+        tag1.initView();
+
+    })
+    function show() {
+        alert(tag1.getValues())
+    }
+</script>
+<script>
+    $(function () {
+        setTimeout(function () {
+            $('code').removeClass('hljs');
+            $('code').removeClass('language');
+        }, 90);
+    });
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+<script>
+    layui.use('upload', function(){
+        var $ = layui.jquery
+            ,upload = layui.upload;
+
+       //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: 'uploadImage/'
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                });
+            }
+            ,done: function(res){
+                //如果上传失败
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
+        //拖拽上传
+        upload.render({
+            elem: '#test10'
+            ,url: 'uploadImage/'
+            ,done: function(res){
+        alert(res.data)
+
+                $("#test10").css("background",res.data);
+                console.log(res)
+            }
+        });
+
+
+    });
+</script>
+</body></html>
