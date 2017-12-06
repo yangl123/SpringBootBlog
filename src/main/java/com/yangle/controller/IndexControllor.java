@@ -1,13 +1,11 @@
 package com.yangle.controller;
 
-import com.yangle.domain.FileResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -21,7 +19,7 @@ import java.util.Map;
  */
 @Controller
 public class IndexControllor {
-    private static final String ROOT ="D:\\blog-files\\";
+    private static final java.lang.String ROOT ="D:\\blog-files\\";
     private final ResourceLoader resourceLoader;
 
     @Autowired
@@ -62,26 +60,25 @@ return map;
  */
 @ResponseBody
 @RequestMapping(method = RequestMethod.POST, value = "/uploadFile")
-public FileResult handleFileUpload(@RequestParam("file") MultipartFile file,
-                               RedirectAttributes redirectAttributes, HttpServletRequest request) {
+public Map handleFileUpload(@RequestParam("file") MultipartFile file,HttpServletRequest request) {
+    Map map=new HashMap();
     if (!file.isEmpty()) {
         try {
 
-
             Files.copy(file.getInputStream(), Paths.get(ROOT, file.getOriginalFilename()));
-
-            FileResult fileResult=new FileResult(0,"上传成功",ROOT+file.getOriginalFilename());
-            return fileResult;
+            map.put("errno",0);
+            map.put("data",new String[]{request.getContextPath()+"/images/"+file.getOriginalFilename()});
+            return map;
         }  catch (IOException e) {
             e.printStackTrace();
-            FileResult fileResult=new FileResult(1,"上传失败","");
-            return fileResult;
+            map.put("errno",1);
+            map.put("data",new String[]{request.getContextPath()+"/images/"+file.getOriginalFilename()});
+            return map;
         }
-
-
 }  else {
-        FileResult fileResult=new FileResult(1,"上传失败","");
-        return fileResult;
+        map.put("errno",1);
+        map.put("data",new String[]{request.getContextPath()+"/images/"+file.getOriginalFilename()});
+        return map;
     }
 
 }
