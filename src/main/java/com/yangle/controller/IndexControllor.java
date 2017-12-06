@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by yangle on 2017/11/30.
@@ -40,14 +42,28 @@ public String to_write(){
         return "writearticle";
 }
 
+@RequestMapping("/to_manage_article")
+public String to_manage_article(){
+        return "glwz";
+}
+
+
+
+@ResponseBody
+@RequestMapping("/uploadImage")
+public Map uploadImage(HttpServletRequest request, String img ){
+    Map map=new HashMap();
+    map.put("msg","上传成功");
+    System.out.println(img);
+return map;
+}
 /**
- * 上传图片
+ * 上传文件
  */
 @ResponseBody
-@RequestMapping(method = RequestMethod.POST, value = "/uploadImage")
+@RequestMapping(method = RequestMethod.POST, value = "/uploadFile")
 public FileResult handleFileUpload(@RequestParam("file") MultipartFile file,
                                RedirectAttributes redirectAttributes, HttpServletRequest request) {
-    System.out.println(request.getParameter("member"));
     if (!file.isEmpty()) {
         try {
 

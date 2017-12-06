@@ -5,3 +5,35 @@
 <link rel="stylesheet" href="layui/css/layui.css"  media="all">
 <script type="text/javascript" src="tags/js/tag.js"></script>
 <link rel="stylesheet" type="text/css" href="tags/css/tag.css" />
+<script src="uploadImage/head/bootstrap.min.js"></script>
+<script src="uploadImage/head/cropper.js"></script>
+<script src="uploadImage/head/sitelogo.js"></script>
+<link rel="stylesheet" type="text/css" href="uploadImage/css/bootstrap.min.css">
+<link href="uploadImage/head/cropper.min.css" rel="stylesheet">
+<link href="uploadImage/head/sitelogo.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="uploadImage/css/font-awesome.min.css">
+<script src="uploadImage/head/html2canvas.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="canvas-particle.js"></script>
+
+<link href="xcode.min.css" rel="stylesheet">
+<link href="style-liberxue.css" rel="stylesheet">
+<script type="text/javascript">
+    window.onload = function() {
+        //配置
+        var config = {
+            vx: 4,	//小球x轴速度,正为右，负为左
+            vy: 4,	//小球y轴速度
+            height: 2,	//小球高宽，其实为正方形，所以不宜太大
+            width: 2,
+            count: 200,		//点个数
+            color: "121, 162, 185", 	//点颜色
+            stroke: "130,255,255", 		//线条颜色
+            dist: 6000, 	//点吸附距离
+            e_dist: 20000, 	//鼠标吸附加速距离
+            max_conn: 10 	//点到点最大连接数
+        }
+
+        //调用
+        CanvasParticle(config);
+    }
+</script>
