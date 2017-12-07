@@ -243,6 +243,7 @@ function dktj(){
 <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
 
 <script type="text/javascript">
+    var fileExtendName;
     //做个下简易的验证  大小 格式
     $('#avatarInput').on('change', function(e) {
         var filemaxsize = 1024 * 5;//5M
@@ -259,6 +260,7 @@ function dktj(){
             var filename = document.querySelector("#avatar-name");
             var texts = document.querySelector("#avatarInput").value;
             var teststr = texts; //你这里的路径写错了
+            fileExtendName=teststr.split(".")[1];
             testend = teststr.match(/[^\\]+\.[^\(]+/i); //直接完整文件名的
             filename.innerHTML = testend;
         }
@@ -274,7 +276,7 @@ function dktj(){
             onrendered: function(canvas) {
                 canvas.id = "mycanvas";
                 //生成base64图片数据
-                var dataUrl = canvas.toDataURL("image/jpeg");
+                var dataUrl = canvas.toDataURL("image/png");
                 var newImg = document.createElement("img");
                 newImg.src = dataUrl;
                 imagesAjax(dataUrl)
@@ -285,7 +287,7 @@ function dktj(){
     function imagesAjax(src) {
         var data = {};
         data.img = src;
-
+        data.fileExtendName=fileExtendName;
         data.jid = $('#jid').val();
 
         $.ajax({

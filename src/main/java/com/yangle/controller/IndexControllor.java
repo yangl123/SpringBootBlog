@@ -6,13 +6,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by yangle on 2017/11/30.
@@ -57,12 +61,29 @@ public String to_tages(){
 
 @ResponseBody
 @RequestMapping("/uploadImage")
-public Map uploadImage(HttpServletRequest request, String img ){
+public Map uploadImage(HttpServletRequest request, String img,String fileExtendName ){
     Map map=new HashMap();
     map.put("msg","上传成功");
     System.out.println(img);
-return map;
+    BASE64Decoder decoder = new BASE64Decoder();
+try {
+img=img.substring(img.indexOf(",")+1,img.length());
+byte[] b = decoder.decodeBuffer(img);
+
+for (int i = 0; i < b.length; ++i) {
+if (b[i] < 0) {
+b[i] += 256;
 }
+}
+
+    Files.copy(new ByteArrayInputStream(b) , Paths.get(ROOT, UUID.randomUUID().toString().replaceAll("-", "")+"."+fileExtendName));
+
+
+} catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }return map;}
 /**
  * 上传文件
  */
