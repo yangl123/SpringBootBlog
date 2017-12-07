@@ -19,7 +19,7 @@ function Tag(inputId){
 		inputObj.css("display","none");
 		var appendStr='';
 		appendStr+='<div class="tagsContaine" id="'+inputId+'_tagcontaine">';
-		appendStr+='<div class="tagList"></div><input type="text" placeholder="请输入标签,按ctrl确认" class="tagInput"/>';
+		appendStr+='<div class="tagList"></div><input type="text" placeholder="请输入标签,按ctrl确认" class="tagInput"  onfocus="dktj()"/>';
 		appendStr+='</div>';
 		inputObj.after(appendStr);
 		var tagInput = $("#"+inputId+"_tagcontaine .tagInput");
@@ -85,6 +85,7 @@ function Tag(inputId){
 }
 
 var tagTake ={
+
 	"setInputValue":function(inputId,inputValue){
 		if(inputValue==null||inputValue==""){
 			return;
@@ -164,7 +165,15 @@ var tagTake ={
 		$("#tages").val(values);
 	},
 	"getTagItemModel":function(valueStr){
-		return '<div class="tagItem"><span style="padding: 5px 5px 5px 5px">'+valueStr+'</span><div class="delete"></div></div>';
+		var color=getColor();
+		return '<div class="tagItem" style="background-color: '+color+'"><span style="padding: 5px 5px 5px 5px">'+valueStr+'</span><div class="delete"></div></div>';
+	},"testAlert":function(valueStr){
+		alert("ceshi chenggong")
 	}
+}
+var arrs=['#6fa3ef','#ff9800','#46c47c'];
+function getColor(){
+	var num=Math.floor(Math.random()*3);
+	return arrs[num];
 }
 

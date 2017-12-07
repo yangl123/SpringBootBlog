@@ -24,7 +24,7 @@
 
 
 </head>
-<body class="bg-grey" gtools_scp_screen_capture_injected="true"><div id="MathJax_Message" style="display: none;"></div>
+<body class="bg-grey" gtools_scp_screen_capture_injected="true" id="mydiv"><div id="MathJax_Message" style="display: none;"></div>
 <#include "./common/_header.html"/>
 <style type="text/css">
     .avatar-btns button {
@@ -65,18 +65,53 @@
             </div>
                 <br>
                 <div class="layui-form-item">
-
+                    <label class="layui-form-label" style="display: block">标签</label>
                         <input type="text" id="tagValue1" lay-verify="title" autocomplete="off" placeholder="请输入标签" class="layui-input">
                         <input type="hidden" id="tages" name="tages">
 
+                    <!--plus-tag-add end-->
+
+                    <div id="mycard-plus" style="display: none">
+                        <div class="default-tag tagbtn">
+                            <div class="clearfix">
+                                <a  value="-1" title="Travel" onclick="setTag(this)"><span>Travel</span><em></em></a>
+                                <a value="-1" title="Internet" onclick="setTag(this)"><span>Internet</span><em></em></a>
+                                <a value="-1" title="it" onclick="setTag(this)"><span>it</span><em></em></a>
+                                <a value="-1" title="French" onclick="setTag(this)"><span>French</span><em></em></a>
+                                <a value="-1" title="English" onclick="setTag(this)"><span>English</span><em></em></a>
+                                <a value="-1" title="JAVA" onclick="setTag(this)"><span>JAVA</span><em></em></a>
+                                <a value="-1" title="Photograph" onclick="setTag(this)"><span>Photograph</span><em></em></a>
+                                <a value="-1" title="Sculpture" onclick="setTag(this)"><span>Sculpture</span><em></em></a>
+                                <a value="-1" title="Drawing" onclick="setTag(this)"><span>Drawing</span><em></em></a>
+                                <a value="-1" title="Jazziness" onclick="setTag(this)"><span>Jazziness</span><em></em></a>
+                                <a value="-1" title="Running" onclick="setTag(this)"><span>Running</span><em></em></a>
+                                <a value="-1" title="PHP" onclick="setTag(this)"><span>PHP</span><em></em></a>
+                                <a value="-1" title="Dreamweaver" onclick="setTag(this)"><span>Dreamweaver</span><em></em></a>
+                                <a value="-1" title="Shopping" onclick="setTag(this)"><span>Shopping</span><em></em></a>
+                                <a value="-1" title="Writing" onclick="setTag(this)"><span>Writing</span><em></em></a>
+                                <a value="-1" title="Diving" onclick="setTag(this)"><span>Diving</span><em></em></a>
+                                <a value="-1" title="Basketball" onclick="setTag(this)"><span>Basketball</span><em></em></a>
+                                <a value="-1" title="Reading" onclick="setTag(this)"><span>Reading</span><em></em></a>
+                            </div>
+
+
+                        </div><!--mycard-plus end-->
+                    </div>
+
                 </div>
                 <div class="layui-form-item">
+
                     <div class="user_pic" style="margin: 10px;">
                         <img src="" style="margin: 10px;width: 150px;height: 200px;">
                     </div>
-                    <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#avatar-modal" style="margin: 10px;">上传封面</button>
+                    <button type="button" class="btn default"  data-toggle="modal" data-target="#avatar-modal" style="margin: 10px;">上传封面</button>
 
                 </div>
+
+
+
+                <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#avatar-modal" style="margin: 10px;background-color: #464c52;border: 0px;float: right">发布文章</button>
+
             </form>
         </div></div></main>
 <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
@@ -131,8 +166,8 @@
 								  <!--<span class="fa fa-search-minus"></span>-->
 								</span>
                                 </button>
-                                <button type="button" class="btn btn-danger fa fa-refresh" data-method="reset" title="重置图片">
-									<span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="$().cropper(&quot;reset&quot;)" aria-describedby="tooltip866214">
+                                <button type="button"  class="btn btn-danger fa fa-refresh" data-method="reset" title="重置图片">
+									<span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="$().cropper(&quot;reset&quot;)" aria-describedby="tooltip866214"/>
                                 </button>
                             </div>
                             <div class="col-md-3">
@@ -147,7 +182,7 @@
 </div>
 
 
-<#include "./common/_footer.html"/>
+    <#include "./common/_footer.html"/>
 <#include "./common/_js.html"/>
 <script type="text/javascript" src="js/wangEditor.min.js"></script>
 <script type="text/javascript">
@@ -165,6 +200,20 @@
         tag1.initView();
 
     })
+    var flag="hide";
+function dktj(){
+
+        var $this = $(this),
+                $con = $('#mycard-plus');
+
+        if(flag=="hide"){
+            $con.show();
+           flag="show";
+        }else{
+            $con.hide();
+            flag="hide";
+        }
+    }
 
 </script>
 <script>
@@ -251,6 +300,14 @@
 //                }
             }
         });
+    }
+</script>
+<script>
+
+    function  setTag(obj) {
+        var value=$(obj).children().text();
+       tagTake.setInputValue("tagValue1",value);
+        dktj();
     }
 </script>
 </body></html>

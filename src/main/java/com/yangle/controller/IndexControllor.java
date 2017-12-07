@@ -44,6 +44,14 @@ public String to_write(){
 public String to_manage_article(){
         return "glwz";
 }
+@RequestMapping("/to_timezhou")
+public String to_timezhou(){
+        return "timezhou";
+}
+@RequestMapping("/to_tages")
+public String to_tages(){
+        return "tages";
+}
 
 
 
