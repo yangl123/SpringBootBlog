@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<link href="test.css" rel="stylesheet"/>
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
+<style>
+    .test{
+        background-color: red;
+    }
+</style>
 </head>
-<body>
+
+<body style="font-family: SimSun">
+<a href="to_write" title="访问 写文章" data-hover="写文章" class="test">写文章</a>
 <h1>hellsfdfsdo</h1>
 <h2>hellsfdfsdo</h2>
 <p th:text="${#httpServletRequest.session.servletContext.contextPath}">adad</p>
