@@ -12,13 +12,5 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class LoginController {
-    @RequestMapping("/login")
-public String login(Model model, HttpServletRequest request,String error, String logout) {
-    if (logout != null) {
-        model.addAttribute("msg", "你已经成功退出");
-    }
-    model.addAttribute("ctx",request.getContextPath());
 
-    return "login";
-}
 }

@@ -106,6 +106,7 @@
 			line-height: 30px;
 			margin-top: 30px;
 			transition: all 0.3s ease-in-out;
+			cursor: pointer;
 		}
 
 		.login:hover {
@@ -177,18 +178,23 @@
 
 <body class="bg-grey " gtools_scp_screen_capture_injected="true" id="mydiv">
 <div class="mydiv">
-	<div id="MathJax_Message" style="display: none;"></div>
+	<div id="MathJax_Message" style="display: none;"></div><!---->
 	<#include "./common/_header.html"/>
+	<form action="login">
 	<div class="form">
 		<div id="landing">登录</div>
 		<div id="registered">注册</div>
 		<div class="fix"></div>
 		<div id="landing-content">
 			<div id="photo"><img src="login/img/photo.jpg" /></div>
-			<div class="inp"><input type="text" placeholder="用户名" /></div>
-			<div class="inp"><input type="password" placeholder="密码" /></div>
-			<div class="login">登录</div>
-			<div id="bottom"><span id="registeredtxt">立即注册</span><span id="forgotpassword">忘记密码</span></div>
+			<div class="inp"><input type="text" placeholder="用户名" name="userid" /></div>
+			<div class="inp"><input type="password" placeholder="密码" name="password"/></div>
+<#if message??>
+<div class="inp" style="text-align: center;font-size: 14px;color: red;font-family: 'Segoe UI'">${message!}</div>
+</#if>
+			<div class="login" onclick="submit()">登录</div>
+
+			<!--<div id="bottom"><span id="registeredtxt">立即注册</span><span id="forgotpassword">忘记密码</span></div>-->
 		</div>
 		<div id="registered-content">
 			<div class="inp"><input type="text" placeholder="请输入用户名" /></div>
@@ -197,9 +203,14 @@
 			<div class="inp"><input type="text" placeholder="电子邮箱" /></div>
 			<div class="login">立即注册</div>
 		</div>
-	</div>
+	</div></form>
 </div>
 
 </body>
-
+<script>
+	
+	function submit() {
+		$("form").submit();
+	}
+</script>
 </html>
