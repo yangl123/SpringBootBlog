@@ -14,11 +14,15 @@ public class ArticleServiceImpl implements IArticleService {
     @Autowired
     private ArticleMapper articleMapper;
     @Override
-    public void save(Article article) {
-        if(article.getId()==null){
-        articleMapper.create(article);}else{
-            articleMapper.update(article);
-        }
+    public int save(Article article) {
+
+        return articleMapper.create(article);
+    }
+    @Override
+    public int update(Article article) {
+
+            return  articleMapper.update(article);
+
     }
 
     @Override

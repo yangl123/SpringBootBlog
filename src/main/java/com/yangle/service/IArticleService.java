@@ -8,7 +8,8 @@ import java.util.List;
 
 @Service
 public interface IArticleService {
-    void save(Article article);
+    int save(Article article);
+    int update(Article article);
      List<Article> getArticles(User user);
      Article getArticle(int id);
     List<String> getYears(User user);

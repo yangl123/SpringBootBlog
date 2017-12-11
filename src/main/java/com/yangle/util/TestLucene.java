@@ -33,11 +33,11 @@ import java.nio.file.Paths;
         private IndexReader indexReader;
 
         private IndexSearcher indexSearcher;
-
+        private static final String root ="d:/index_blog";
 
         public void setUp() throws IOException {
                 //索引存放的位置，设置在当前目录中
-                directory = FSDirectory.open(Paths.get("indexDir/"));
+                directory = FSDirectory.open(Paths.get(root,"indexDir/"));
 
                 //创建索引的读取器
                 indexReader = DirectoryReader.open(directory);
@@ -188,8 +188,8 @@ import java.nio.file.Paths;
 
                 Analyzer analyzer = new IKAnalyzer();//中文分词
 
-                String[] filedStr = new String[]{"title", "content"};
-                String text = "Apache Spark 大规模数据处理";
+                String[] filedStr = new String[]{"tages", "content"};
+                String text = "php";
 
                 //指定搜索字段和分析器
                 QueryParser parser =  new MultiFieldQueryParser(filedStr, analyzer);
@@ -221,7 +221,7 @@ import java.nio.file.Paths;
 
                 try {
                         lucene.setUp();
-                        lucene.termQueryTest();
+                        lucene.HighlighterTest();
                         lucene.tearDown();
                 } catch (Exception e) {
                         e.printStackTrace();

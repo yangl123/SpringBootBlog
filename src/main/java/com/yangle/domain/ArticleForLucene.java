@@ -2,14 +2,14 @@ package com.yangle.domain;
 
 import java.util.Date;
 
-public class Article {
+public class ArticleForLucene {
     private String id;
     private String title;
-    private Integer categoryId;
+    private String categoryName;
     private String content;
     private String tages;
     private String thumbUrl;
-    private Date subTime;
+    private String subTime;
     private Integer viewCount;
 
     public Integer getViewCount() {
@@ -20,11 +20,19 @@ public class Article {
         this.viewCount = viewCount;
     }
 
-    public Date getSubTime() {
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getSubTime() {
         return subTime;
     }
 
-    public void setSubTime(Date subTime) {
+    public void setSubTime(String subTime) {
         this.subTime = subTime;
     }
 
@@ -44,13 +52,6 @@ public class Article {
         this.title = title;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
 
     public String getContent() {
         return content;

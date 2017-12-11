@@ -3,14 +3,18 @@ package com.yangle.controller;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.BaseFont;
 import com.yangle.domain.Article;
+import com.yangle.domain.ArticleForLucene;
 import com.yangle.domain.Category;
 import com.yangle.domain.User;
 import com.yangle.service.IArticleService;
 import com.yangle.service.ICategoryService;
 import com.yangle.service.IUserService;
+import com.yangle.util.LuceneSearchUtils;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
@@ -46,12 +50,25 @@ private ICategoryService categoryServiceImpl;
     private IArticleService articleServiceImpl;
     Map<String,List<Article>> tages=null;
 
+    @RequestMapping("to_search_list")
+    public String search(String key,HttpServletRequest request){
+        List<ArticleForLucene> articles=new ArrayList<>();
+        try {
+             articles=LuceneSearchUtils.HighlighterTest(key);
+
+        } catch (Exception e) {
+
+        }
+        request.setAttribute("articles",articles);
+        return "searchresult";
+    }
 
     @ResponseBody
     @RequestMapping("deleteArticle")
     public Integer deleteArticle(String id){
         try{
-articleServiceImpl.delete(id);
+                articleServiceImpl.delete(id);
+            LuceneSearchUtils.deleteIndex(id);
         return 0;//删除成功
         }
 catch (Exception e){
@@ -64,7 +81,7 @@ public String viewArticle(String id,HttpServletRequest request){
     Article article=articleServiceImpl.getArticle(Integer.parseInt(id));
     request.setAttribute("tages",Arrays.asList(article.getTages().split(",")));
     article.setViewCount(article.getViewCount()+1);
-    articleServiceImpl.save(article);//更新阅读次数
+    articleServiceImpl.update(article);//更新阅读次数
     request.setAttribute("article",article);
     Map<String,String> dircts=new HashMap<>();
     for(Category category:categoryServiceImpl.getCategories((User) request.getSession().getAttribute("user"))){
@@ -76,8 +93,23 @@ public String viewArticle(String id,HttpServletRequest request){
 @RequestMapping("/submitArticle")
 public String submitArticle(Article article,HttpServletRequest request){
     article.setSubTime(new Date());
-    articleServiceImpl.save(article);
-return index(request);
+    if(article.getId()==null||"".equals(article.getId())){
+article.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+        articleServiceImpl.save(article);
+    }else{
+        articleServiceImpl.update(article);
+    }
+    List<Category> categories=categoryServiceImpl.getCategories(new User());
+    Map<String,String> dircts=new HashMap<>();
+    for(Category category:categories){
+        dircts.put("key"+category.getId(),category.getCategoryName());
+    }
+    try {
+        LuceneSearchUtils.updateIndex(article,dircts);
+    } catch (Exception e) {
+
+    }
+    return index(request);
 }
 @Autowired
 private IUserService userServiceImpl;

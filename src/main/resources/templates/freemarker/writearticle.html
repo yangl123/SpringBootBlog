@@ -37,7 +37,7 @@
 
         <div class="main-content index-page clearfix ">
 
-            <form class="layui-form  layui-form-pane" action="submitArticle">
+            <form class="layui-form  layui-form-pane" action="submitArticle" method="post">
                 <input type="hidden" name="id" value="${(article.id)!}">
                 <input type="hidden" name="viewCount" value="${(article.viewCount)!}">
                 <div class="layui-form-item">
@@ -52,7 +52,7 @@
                     <div class="layui-input-block" >
                         <select name="categoryId" lay-filter="aihao">
                             <#list categories as category>
-                            <option value="${category.id}" <#if (article.id??)&&(article.id==category.id)>selected="true"</#if>>${category.categoryName}</option>
+                            <option value="${category.id}" <#if (article.id??)&&(article.categoryId==category.id)>selected="true"</#if>>${category.categoryName}</option>
                             </#list>
                         </select>
                     </div>
@@ -105,7 +105,7 @@
 
 <input type="hidden" name="thumbUrl" id="thumbUrl">
                     <div id="uploader-demo">
-                     <img id="test" width="200" height="300px">
+                     <img id="test" width="200" height="300px" src="${article.thumbUrl!}">
                         <div id="filePicker">选择图片</div>
                     </div>
                 </div>
