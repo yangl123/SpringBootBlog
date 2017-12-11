@@ -13,10 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.ResourceUtils;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @RunWith(SpringRunner.class)
@@ -80,4 +77,7 @@ private QueueHandler queueHandler;
 			System.out.println(name+":"+url+":"+username+":"+password+":"+readCount);
 		}
 	}
+
+
+
 }
