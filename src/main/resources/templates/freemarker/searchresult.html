@@ -1,0 +1,70 @@
+<!-- saved from url=(0036)https://liberxue.github.io/?liberxue -->
+<html lang="zh-cn" data-scribe-reduced-action-queue="true">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>Person blog</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="search/style.css" rel="stylesheet">
+    <link href="xcode.min.css" rel="stylesheet">
+    <link href="style-liberxue.css" rel="stylesheet">
+
+
+
+</head>
+<body class="bg-grey " gtools_scp_screen_capture_injected="true" id="mydiv">
+<div class="mydiv">
+    <div id="MathJax_Message" style="display: none;"></div>
+    <#include "./common/_header.html"/>
+
+    <main class="tl f6 relative pa4 pa5-ns overflow-hidden">
+
+        <div class="markdown-body">
+            <div class="main-content archive-page clearfix">
+                <section class="widget-box home-layout">
+                    <h3 class="post_box_title"><span class="ttcolor"><i class="fa fa-twitch" ></i>搜索结果<#if articles?size = 0><span style="color: red">:未搜索到任何结果</span></#if></span></h3>
+
+                    <#if articles?size &gt; 0>
+<#list articles as article>
+                    <article class="post_box" id="post_box1">
+                    <div class="post-img col-xs-4">
+                        <a >
+                            <img class="img-responsive img-rounded imgs" src="${article.thumbUrl!}" alt="${article.title}" title=""><em></em>
+                        </a>
+                    </div>
+                    <div class="post-right">
+                        <h3><a href="" title="">${(article.title)!}</a></h3>
+                        <div class="post-con">      <a href="" title=""><#if (article.content)?length &gt; 350>${(article.content)?substring(0,350)}<#else>${(article.content)}</#if></a>
+                        </div>
+                        <div class="item-meta">
+                            <span class="mu-ml"><i class="fa fa-list-alt"></i><a href="">${article.categoryName!}</a></span>
+                            <span class="mu-ml-clock"><i class="fa fa-calendar"></i>${article.subTime!}</span>
+                            <span class="mu-ml-eye"><i class="fa fa-paw"></i>${article.viewCount}次浏览</span>
+                            <span class="mu-ml-comment"><i class="fa fa-comment"></i><a href="https://www.talklee.com/blog/319.html#comments">2条评论</a></span>
+                            <a class="read-more right" style="margin-right: 5px" href="viewArticle?id=${article.id}" title="">阅读全文</a>
+                        </div>
+                    </div>
+                    </article>
+</#list>
+
+
+                    </#if>
+
+                </section>
+                </div></div>
+    </main>
+    <#include "./common/_footer.html"/>
+    <#include "./common/_js.html"/>
+
+</div>
+
+</body>
+</html>
