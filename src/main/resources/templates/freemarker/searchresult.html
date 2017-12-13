@@ -36,13 +36,13 @@
 <#list articles as article>
                     <article class="post_box" id="post_box1">
                     <div class="post-img col-xs-4">
-                        <a >
+                        <a href="viewArticle?id=${article.id}">
                             <img class="img-responsive img-rounded imgs" src="${article.thumbUrl!}" alt="${article.title}" title=""><em></em>
                         </a>
                     </div>
                     <div class="post-right">
-                        <h3><a href="" title="">${(article.title)!}</a></h3>
-                        <div class="post-con">      <a href="" title=""><#if (article.content)?length &gt; 350>${(article.content)?substring(0,350)}<#else>${(article.content)}</#if></a>
+                        <h3><a href="viewArticle?id=${article.id}" title="">${(article.title)!}</a></h3>
+                        <div class="post-con">      <a href="viewArticle?id=${article.id}" title=""><#if (article.content)?length &gt; 350>${(article.content)?substring(0,350)}<#else>${(article.content)}</#if></a>
                         </div>
                         <div class="item-meta">
                             <span class="mu-ml"><i class="fa fa-list-alt"></i><a href="">${article.categoryName!}</a></span>

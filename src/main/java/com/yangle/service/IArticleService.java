@@ -11,7 +11,7 @@ public interface IArticleService {
     int save(Article article);
     int update(Article article);
      List<Article> getArticles(User user);
-     Article getArticle(int id);
+     Article getArticle(String id);
     List<String> getYears(User user);
     void delete(String id);
 }

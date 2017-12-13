@@ -38,7 +38,7 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     @Override
-    public Article getArticle(int id) {
+    public Article getArticle(String id) {
         return articleMapper.getArticle(id);
     }
 

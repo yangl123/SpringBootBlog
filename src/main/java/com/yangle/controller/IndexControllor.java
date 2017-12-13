@@ -49,6 +49,14 @@ private ICategoryService categoryServiceImpl;
     @Autowired
     private IArticleService articleServiceImpl;
     Map<String,List<Article>> tages=null;
+@ResponseBody
+@RequestMapping("addCategory")
+public List<Category> addCategory(String name,HttpServletRequest request){
+    Category category=new Category();
+    category.setCategoryName(name);
+    categoryServiceImpl.insert(category);
+return categoryServiceImpl.getCategories((User) request.getSession().getAttribute("user"));
+}
 
     @RequestMapping("to_search_list")
     public String search(String key,HttpServletRequest request){
@@ -78,7 +86,7 @@ return 1;//删除失败
     }
 @RequestMapping("/viewArticle")
 public String viewArticle(String id,HttpServletRequest request){
-    Article article=articleServiceImpl.getArticle(Integer.parseInt(id));
+    Article article=articleServiceImpl.getArticle(id);
     request.setAttribute("tages",Arrays.asList(article.getTages().split(",")));
     article.setViewCount(article.getViewCount()+1);
     articleServiceImpl.update(article);//更新阅读次数
@@ -160,7 +168,7 @@ private IUserService userServiceImpl;
 
         String id= request.getParameter("id");
         if(id!=null&&!id.equals("")){
-            request.setAttribute("article",articleServiceImpl.getArticle(Integer.parseInt(id)));
+            request.setAttribute("article",articleServiceImpl.getArticle(id));
         }else {
             request.setAttribute("article",new Article());
         }
@@ -302,7 +310,7 @@ map.put("imageUrl",request.getContextPath() + "/images/" + fileName);
 
         /* 创建数据模型 */
         Map root = new HashMap();
-        Article article=articleServiceImpl.getArticle(Integer.parseInt(id));
+        Article article=articleServiceImpl.getArticle(id);
         article.setContent(article.getContent().replace("<br>","<br></br>"));
         root.put("article", article);
         root.put("tages", Arrays.asList(article.getTages().split(",")));

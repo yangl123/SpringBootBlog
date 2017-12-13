@@ -24,4 +24,9 @@ private CategoryMapper categoryMapper;
 
 
     }
+
+    @Override
+    public void insert(Category category) {
+categoryMapper.insert(category);
+    }
 }
