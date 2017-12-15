@@ -14,4 +14,5 @@ public interface IArticleService {
      Article getArticle(String id);
     List<String> getYears(User user);
     void delete(String id);
+    void deleteByCatId(String id);
 }

@@ -9,4 +9,6 @@ import java.util.List;
 public interface ICategoryService {
     List<Category> getCategories(User user);
     void insert(Category category);
+    void delete(String id);
+    void update(Category category);
 }

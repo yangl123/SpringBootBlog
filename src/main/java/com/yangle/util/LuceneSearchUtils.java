@@ -3,31 +3,25 @@ package com.yangle.util;
 import com.yangle.domain.Article;
 import com.yangle.domain.ArticleForLucene;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.*;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
-import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.highlight.Highlighter;
-import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.Version;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.StringReader;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,11 +70,13 @@ private static final String root ="d:/index_blog";
 
     public static  void  updateIndex(Article article,Map<String, String> dircts) throws Exception {
 init();
+
         Analyzer analyzer = new IKAnalyzer();//中文分词
         //创建索引写入配置
         IndexWriterConfig indexWriterConfig = new IndexWriterConfig(analyzer);
         //创建索引写入对象
         IndexWriter indexWriter = new IndexWriter(directory, indexWriterConfig);
+
 
         long count = indexWriter.updateDocument(new Term("id", article.getId()+""), generateDoc(article,dircts));
         System.out.println("更新索引:" + count);
@@ -215,6 +211,7 @@ long count=indexWriter.deleteDocuments(new Term("id",id));
     }
 
     public static void main(String[] args) throws Exception {
-HighlighterTest("php");
+        init();
+HighlighterTest("测试");
     }
 }

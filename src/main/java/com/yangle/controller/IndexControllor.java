@@ -13,8 +13,6 @@ import com.yangle.util.LuceneSearchUtils;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
@@ -49,14 +47,37 @@ private ICategoryService categoryServiceImpl;
     @Autowired
     private IArticleService articleServiceImpl;
     Map<String,List<Article>> tages=null;
+
+    @RequestMapping("to_manage_category")
+    public String manageCategory(HttpServletRequest request){
+        request.setAttribute("categories",categoryServiceImpl.getCategories((User) request.getSession().getAttribute("user")));
+        return "glfl";
+    }
+    @ResponseBody
+    @RequestMapping("delCategory")
+    public Integer delCategory(String id){
+        categoryServiceImpl.delete(id);
+        articleServiceImpl.deleteByCatId(id);
+        return 0;
+    }
+    @ResponseBody
+    @RequestMapping("updateCategory")
+    public Integer updateCategory(Category category){
+        categoryServiceImpl.update(category);
+        return 0;
+    }
+
 @ResponseBody
 @RequestMapping("addCategory")
-public List<Category> addCategory(String name,HttpServletRequest request){
+public Category addCategory(String categoryName){
     Category category=new Category();
-    category.setCategoryName(name);
+    category.setCategoryName(categoryName);
+    category.setId(UUID.randomUUID().toString().replaceAll("-", ""));
     categoryServiceImpl.insert(category);
-return categoryServiceImpl.getCategories((User) request.getSession().getAttribute("user"));
+return category;
 }
+
+
 
     @RequestMapping("to_search_list")
     public String search(String key,HttpServletRequest request){
@@ -104,6 +125,7 @@ public String submitArticle(Article article,HttpServletRequest request){
     if(article.getId()==null||"".equals(article.getId())){
 article.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         articleServiceImpl.save(article);
+        article.setViewCount(0);
     }else{
         articleServiceImpl.update(article);
     }

@@ -1,14 +1,14 @@
 package com.yangle.domain;
 
 public class Category {
-    private Integer id;
+    private String id;
     private String categoryName;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

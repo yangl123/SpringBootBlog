@@ -29,4 +29,14 @@ private CategoryMapper categoryMapper;
     public void insert(Category category) {
 categoryMapper.insert(category);
     }
+
+    @Override
+    public void delete(String id) {
+        categoryMapper.delete(id);
+    }
+
+    @Override
+    public void update(Category category) {
+        categoryMapper.update(category);
+    }
 }

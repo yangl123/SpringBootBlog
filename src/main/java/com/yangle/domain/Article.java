@@ -5,7 +5,7 @@ import java.util.Date;
 public class Article {
     private String id;
     private String title;
-    private Integer categoryId;
+    private String categoryId;
     private String content;
     private String tages;
     private String thumbUrl;
@@ -44,11 +44,11 @@ public class Article {
         this.title = title;
     }
 
-    public Integer getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 

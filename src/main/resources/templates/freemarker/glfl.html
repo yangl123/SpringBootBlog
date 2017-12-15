@@ -1,0 +1,241 @@
+<!-- saved from url=(0036)https://liberxue.github.io/?liberxue -->
+<html lang="zh-cn" data-scribe-reduced-action-queue="true">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>Person blog</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="xcode.min.css" rel="stylesheet">
+    <link href="style-liberxue.css" rel="stylesheet">
+    <link rel="stylesheet" href="dialog/css/common.css"/>
+    <script src="push.js"></script>
+    <script async="" src="analytics.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-101222464-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+</head>
+<body class="bg-grey " gtools_scp_screen_capture_injected="true" id="mydiv">
+<div class="mydiv">
+    <div id="MathJax_Message" style="display: none;"></div>
+    <#include "./common/_header.html"/>
+
+    <main class="tl f6 relative pa4 pa5-ns overflow-hidden">
+
+        <div class="markdown-body">
+            <div class="main-content archive-page clearfix">
+                <div class="categorys-item">
+                    <div class="categorys-title" id="1970">
+                       分类管理
+                    </div>
+                    <div class="post-lists">
+                        <div class="post-lists-body">
+<#list categories as category>
+
+
+                            <div class="post-list-item" onmouseleave="test()" >
+                                <div class="post-list-item-container"  >
+                                    <a class="delete" style="float: right;cursor: pointer;display: none" onclick="deletess(this,'${category.id}')" ><img src="image/delete.png"></a>
+                                    <div class="liberxue-title" style="height: 25px">
+
+                                    </div>
+                                    <div class="item-label">
+                                        <div class="item-title">
+                                            <a
+                                               title="点击修改" style="cursor: pointer">
+                                                <input type="hidden" value="${category.id}">
+                                                <p style="text-align: center">${category.categoryName}</p></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+</#list>
+
+
+                            <div class="post-list-item" onmouseleave="test()" id="addClass">
+                                <div class="post-list-item-container">
+                                    <div class="liberxue-title" style="height: 25px">
+
+                                    </div>
+                                    <div class="item-label">
+                                        <div class="item-title" >
+                                            <a id="add"
+                                                    title="点击添加" style="cursor: pointer">
+                                                <p style="text-align: center"><img src="dialog/images/add2.png"></p></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+</div></div></div>
+    </div>
+
+</div>
+    </main>
+    <div id="dialogBg"></div>
+    <div id="dialog" class="animated">
+        <img class="dialogIco" width="50" height="50" src="dialog/images/ico.png" alt="" />
+        <div class="dialogTop">
+            <a href="javascript:;" class="claseDialogBtn">关闭</a>
+        </div>
+        <form action="addCategory" method="post" id="editForm">
+            <ul class="editInfos">
+                <li><label><font color="#ff0000">* </font>分类名称：<input type="text" name="categoryName" required value="" class="ipt" /></label></li>
+                <li><button type="button" value="确认提交" class="submitBtn" onclick="save()">保存</button></li>
+            </ul>
+        </form>
+    </div>
+    <#include "./common/_footer.html"/>
+    <#include "./common/_js.html"/>
+    <script>
+
+        function deletess(obj,id) {
+            if(confirm("你确信要删除此分类么？删除之后将会删除此分类下所有文章！！！"))
+
+            {
+                    $.ajax({
+                        type: "POST",
+                        url: "delCategory?id="+id,
+                        data: "",
+                        dataType: "json",
+                        success: function (response) {
+                            if(response==0){
+                                obj.parentNode.parentNode.remove();
+                            }else {
+                                alert("删除失败")
+                            }}});
+            }
+
+
+        }
+
+        function save() {
+
+            if (flag == "add") {
+                var name = $(".ipt").val();
+                $.ajax({
+                    type: "POST",
+                    url: "addCategory?categoryName=" + name,
+                    data: "",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.id) {
+                            $("#addClass").before("<div class='post-list-item' onmouseleave='test()' > <div class='post-list-item-container'  > <a class='delete' style='float: right;cursor: pointer;display: none' onclick=\"deletess(this,\'" + response.id + "')\" ><img src='image/delete.png'></a> <div class='liberxue-title' style='height: 25px'> </div> <div class='item-label'> <div class='item-title'> <a title='点击修改' style='cursor: pointer' class='modify'> <p style='text-align: center'>" + response.categoryName + "</p></a> </div> </div> </div> </div>")
+
+                            $("#addClass").prev().hover(function () {
+                                $(this).find("a.delete").css("display", "");
+                                $pre = $(this);
+                            })
+
+                            $("#addClass").prev().find("a.modify").click(function () {
+                                className = $(this).attr('class');
+                                $('#dialogBg').fadeIn(150);
+                                $('#dialog').removeAttr('class').addClass('animated ' + className + '').fadeIn();
+
+                            })
+                            $(".claseDialogBtn").click();
+                        } else {
+                            alert("添加失败")
+                        }
+                    }
+                });
+
+
+            } else {
+                var name = $(".ipt").val();
+                $.ajax({
+                    type: "POST",
+                    url: "updateCategory?categoryName=" + name + "&id=" + ids,
+                    data: "",
+                    dataType: "json",
+                    success: function (response) {
+                    if(response==0){
+                        $pre.find("p").text(name)
+                        $(".claseDialogBtn").click();
+                    }else{
+                        alert("更新失败")
+                    }
+                    }
+                })
+            }
+        }
+        var $pre;
+        $(".post-list-item-container").hover(function () {
+            $(this).find("a.delete").css("display","");
+            $pre=$(this);
+        })
+        function test() {
+            $pre.find("a.delete").css("display","none");
+        }
+    </script>
+    <script type="text/javascript">
+        var w,h,className;
+        function getSrceenWH(){
+            w = $(window).width();
+            h = $(window).height();
+            $('#dialogBg').width(w).height(h);
+        }
+
+        window.onresize = function(){
+            getSrceenWH();
+        }
+        $(window).resize();
+var flag;
+        var ids;
+        $(function(){
+            getSrceenWH();
+
+            //显示弹框
+            $('.item-title a').click(function(){
+
+                var idd=$(this).attr("id")
+                if(idd=="add"){
+                    flag="add"
+                }else{
+                    flag="update";
+ids=$(this).find("input").val();
+                    $(".ipt").val($(this).find("p").text());
+                }
+                className = $(this).attr('class');
+                $('#dialogBg').fadeIn(150);
+                $('#dialog').removeAttr('class').addClass('animated '+className+'').fadeIn();
+            });
+
+            //关闭弹窗
+            $('.claseDialogBtn').click(function(){
+                $('#dialogBg').fadeOut(50,function(){
+                    $('#dialog').addClass('bounceOutUp').fadeOut();
+                });
+            });
+        });
+        document.onkeydown=function(event){
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+            if(e && e.keyCode==27){ // 按 Esc
+                $(".claseDialogBtn").click();
+            }}
+    </script>
+</div>
+
+</body>
+</html>

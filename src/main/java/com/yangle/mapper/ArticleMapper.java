@@ -4,7 +4,6 @@ import com.yangle.domain.Article;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
-import org.apache.xmlbeans.impl.xb.xsdschema.ListDocument;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,4 +32,7 @@ public interface ArticleMapper {
 
     @Delete("delete from tb_article where id=#{id}")
     public void delete(String id);
+
+    @Delete("delete from tb_article where categoryId=#{id}")
+    public void deleteByCatId(String id);
 }

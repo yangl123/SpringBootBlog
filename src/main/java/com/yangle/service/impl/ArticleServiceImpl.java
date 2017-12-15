@@ -54,4 +54,9 @@ public class ArticleServiceImpl implements IArticleService {
     public void delete(String id){
         articleMapper.delete(id);
     }
+
+    @Override
+    public void deleteByCatId(String id) {
+        articleMapper.deleteByCatId(id);
+    }
 }

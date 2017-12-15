@@ -62,7 +62,7 @@
                                 <div class="post-list-item-container"  >
                                     <a class="delete" style="float: right;cursor: pointer;display: none" onclick="deletes(this,'${article.id}')" ><img src="image/delete.png"></a>
                                     <div class="liberxue-title">
-                                        ${article.title}
+                                        <#if (article.title)?length &gt; 25>${(article.title)?substring(0,25)}....<#else> ${article.title}</#if>
                                     </div>
                                     <div class="item-label">
                                         <div class="item-title">
@@ -127,8 +127,9 @@
         }
         
         function deletes(obj,id) {
-            confirm("Are you sure?", "You will not be able to recover this imaginary file!", function (isConfirm) {
-                if (isConfirm) {
+            if(confirm("你确信要删除此文章么？"))
+
+            {
                     $.ajax({
                         type: "POST",
                         url: "deleteArticle?id="+id,
@@ -136,16 +137,12 @@
                         dataType: "json",
                         success: function (response) {
                             if(response==0){
-                                obj.parentNode.parentNode.removeChild(obj.parentNode);
+                                obj.parentNode.parentNode.remove();
                                 alert("删除成功")
                             }else {
                                 alert("删除失败")
                             }}});
-                } else {
-                    //after click the cancel
-                }
-            }, {confirmButtonText: 'Yes, delete it!', cancelButtonText: 'No, cancel plx!', width: 400});
-         /*   */
+            }
 
 
         }
