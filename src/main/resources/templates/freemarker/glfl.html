@@ -149,6 +149,7 @@
                             })
 
                             $("#addClass").prev().find("a.modify").click(function () {
+                                flag="update"
                                 className = $(this).attr('class');
                                 $('#dialogBg').fadeIn(150);
                                 $('#dialog').removeAttr('class').addClass('animated ' + className + '').fadeIn();
