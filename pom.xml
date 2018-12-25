@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.yangle</groupId>
-	<artifactId>commonframe</artifactId>
+	<artifactId>blogs</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
-	<name>CommonFrame</name>
+	<name>blogs</name>
 	<description>common project for Spring Boot</description>
 
 	<parent>
@@ -16,6 +16,7 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.7.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
+
 	</parent>
 
 	<properties>
@@ -36,6 +37,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>

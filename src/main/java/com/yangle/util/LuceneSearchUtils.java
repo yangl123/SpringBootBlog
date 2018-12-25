@@ -19,6 +19,7 @@ import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.springframework.beans.factory.annotation.Value;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import java.io.IOException;
@@ -37,7 +38,11 @@ public class LuceneSearchUtils {
     private static IndexReader indexReader;
 
     private static IndexSearcher indexSearcher;
-private static final String root ="d:/index_blog";
+    @Value("${index.path}")
+private  static String root ;
+//private static final String root ="c:/index_blog";
+//private static final String root ="/home/index_blog";
+
     public static void createIndex(List<Article> articles, Map<String, String> dircts) {
             try {
                 long start = System.currentTimeMillis();

@@ -1,9 +1,10 @@
+<#assign ctx2="${request.contextPath}"/>
 <header id="header" class="header bg-white">
     <div class="navbar-container">
-        <a href="/CommonFrame" title="blog" class="navbar-logo"> <img src="logo.png" alt="LiberXue|FullStack|独立开发者|jekyll blog|GitHub blog"/> </a>
+        <a href="${ctx2}" title="blog" class="navbar-logo"> <img src="logo.png" alt="LiberXue|FullStack|独立开发者|jekyll blog|GitHub blog"/> </a>
         <div class="navbar-menu">
 
-            <a href="/CommonFrame" title="访问 首页" data-hover="首页">首页</a>
+            <a href="${ctx2}" title="访问 首页" data-hover="首页">首页</a>
 
 
             <a href="to_timezhou" title="访问 时间轴" data-hover="时间轴">时间轴</a>
@@ -38,19 +39,22 @@
             <span class="icon-menu cross"><span class="middle"></span></span>
             <ul>
 
-                <li><a href="LiberXue_FullStack_独立开发者_jekyll blog_GitHub blog.html" title="访问 首页" data-hover="首页">首页</a></li>
+                <li><a href="${ctx2}" title="访问 首页" data-hover="首页">首页</a></li>
 
-                <li><a href="https://liberxue.github.io/book?liberxue" title="访问 诶书籍" data-hover="书籍">书籍</a></li>
+                <li><a href="to_timezhou" title="访问 时间轴" data-hover="时间轴">时间轴</a></li>
 
-                <li><a href="https://liberxue.github.io/road?liberxue" title="访问 旅游" data-hover="旅游">旅游</a></li>
+                <li><a href="to_tages" title="访问 标签" data-hover="标签">标签</a></li>
+				<#if user??>
 
-                <li><a href="https://liberxue.github.io/archives?liberxue" title="访问 归档" data-hover="归档">归档</a></li>
-
-                <li><a href="https://liberxue.github.io/tags?liberxue" title="访问 标签" data-hover="标签">标签</a></li>
-
-                <li><a href="https://liberxue.github.io/about?liberxue" title="访问 关于" data-hover="关于">关于</a></li>
-                <li><a href="to_login" title="访问 关于" data-hover="关于">登录</a></li>
                 <li><a href="to_write" title="访问 写文章" data-hover="写文章">写文章</a></li>
+
+                <li><a href="to_manage_article" title="访问 管理文章" data-hover="管理文章">管理文章</a></li>
+
+                <li><a href="to_manage_category" title="访问 分类管理" data-hover="分类管理">分类管理</a></li>
+                <li><a href="logout" title="访问 退出" data-hover="退出">退出</a></li>
+                <#else>
+                   <li><a href="to_login" title="访问 登录" data-hover="登录">登录</a></li>
+            </#if>
 
             </ul>
         </div>

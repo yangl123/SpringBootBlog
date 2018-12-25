@@ -14,6 +14,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,8 @@ import java.util.*;
  */
 @Controller
 public class IndexControllor {
-    private static final java.lang.String ROOT = "D:\\blog-files\\";
+    @Value("${root.path}")
+    private  java.lang.String ROOT ;
     private final ResourceLoader resourceLoader;
 
     @Autowired
@@ -68,7 +70,7 @@ private ICategoryService categoryServiceImpl;
     }
 
 @ResponseBody
-@RequestMapping("addCategory")
+@RequestMapping(value = "addCategory")
 public Category addCategory(String categoryName){
     Category category=new Category();
     category.setCategoryName(categoryName);

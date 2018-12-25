@@ -18,7 +18,7 @@ import java.io.File;
 /**
  * Created by yangle on 2017/9/27.
  */
-@Component
+//@Component
 public class EmailSender {
     private final Logger logger = LoggerFactory.getLogger(EmailSender.class);
     @Autowired
